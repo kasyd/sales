@@ -1,14 +1,7 @@
 RailsAdmin.config do |config|
 
-
-  config.main_app_name = ["Representantes Comerciais", ""]
-
-
-  config.navigation_static_links = {
-    'OneBitCode' => 'http://onebitcode.com'
-  }
-
-  config.navigation_static_label = "Links Úteis"
+  require Rails.root.join('lib', 'rails_admin', 'rails_admin_pdf.rb')
+  RailsAdmin::Config::Actions.register(RailsAdmin::Config::Actions::Pdf)
 
 
   ### Popular gems integration
@@ -33,6 +26,13 @@ RailsAdmin.config do |config|
   ## == Gravatar integration ==
   ## To disable Gravatar integration in Navigation Bar set to false
   # config.show_gravatar true
+
+  config.navigation_static_links = {
+    'OneBitCode' => 'http://onebitcode.com'
+  }
+  config.navigation_static_label = "Links Úteis"
+
+  config.main_app_name = ["Representantes Comerciais", ""]
 
   config.model Sale do
     navigation_icon 'fa fa-money'
@@ -173,6 +173,9 @@ RailsAdmin.config do |config|
     edit
     delete
     show_in_app
+    pdf do
+     only User
+    end
 
     ## With an audit adapter, you can add:
     # history_index
